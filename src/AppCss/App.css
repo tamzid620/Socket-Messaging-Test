@@ -8,6 +8,8 @@ body {
 .container {
   width: 50vh;
   border-radius: 5px;
+  border: 1px solid navy; 
+  padding: 10px;
 }
 
 .login {
@@ -35,9 +37,11 @@ body {
   cursor: pointer;
 }
 
-.username {
+.userName {
   font-weight: bold;
-  color: lightseagreen;
+  color: white;
+  background-color: darkblue;
+  padding: 10px;
   position: absolute;
   top: 15px;
   right: 20px;
