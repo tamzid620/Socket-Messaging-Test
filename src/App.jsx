@@ -11,6 +11,16 @@ const App = () => {
   const handleUserName = (e) => {
     setUserName(e.target.value);
   };
+  // handle login button -------------
+  const handleLogin =() => {
+    setUser(userName)
+  }
+  // enter key button tactic ------------
+  const handleEnter = (event) => {
+    if(event.key ==="Enter"){
+      handleLogin();
+    }
+  }
 
   return (
     <div className="container">
@@ -27,10 +37,11 @@ const App = () => {
             placeholder="UserName"
             value={userName}
             onChange={handleUserName}
+            onKeyDown={handleEnter}
             className="input border border-black rounded-md"
           />
 
-          <button onClick={ () => setUser(userName) } className="button">
+          <button onClick={ handleLogin } className="button">
             Login
           </button>
         </div>
