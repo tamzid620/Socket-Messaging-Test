@@ -5,7 +5,6 @@ import Comment from "../../img/comment.svg";
 import Share from "../../img/share.svg";
 import Info from "../../img/info.svg";
 import {  useState } from "react";
-import PropTypes from 'prop-types';
 
 const Card = ({ post ,socket, user }) => {
 
@@ -14,7 +13,7 @@ const Card = ({ post ,socket, user }) => {
 //   handleLike button----------
 const handleLike =(type) => {
     setLiked(true) ;
-    socket?.emit("sendNotification" , {
+    socket.emit("sendNotification" , {
       senderName: user ,
       receiverName: post.username ,
       type,
@@ -47,8 +46,3 @@ const handleLike =(type) => {
 export default Card;
 
 
-Card.propTypes = {
-  post: PropTypes.object.isRequired,
-  socket: PropTypes.object, // Add this line for the socket prop
-  user: PropTypes.string.isRequired,
-};

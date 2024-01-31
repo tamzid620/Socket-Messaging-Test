@@ -15,8 +15,11 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    socket.emit("newUser" , user)
+    if (socket) {
+      socket.emit("newUser", user);
+    }
   }, [socket, user]);
+  
   
   // onchange section ---------------
   const handleUserName = (e) => {
