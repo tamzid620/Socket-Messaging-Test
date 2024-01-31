@@ -5,14 +5,20 @@ import Comment from "../../img/comment.svg";
 import Share from "../../img/share.svg";
 import Info from "../../img/info.svg";
 import {  useState } from "react";
+import PropTypes from 'prop-types';
 
-const Card = ( {post} ) => {
+const Card = ({ post ,socket, user }) => {
 
   const [liked, setLiked] = useState(false);
 
 //   handleLike button----------
-const handleLike =() => {
-    setLiked(true)
+const handleLike =(type) => {
+    setLiked(true) ;
+    socket?.emit("sendNotification" , {
+      senderName: user ,
+      receiverName: post.username ,
+      type,
+    }) ;
 } 
 
   return (
@@ -27,11 +33,11 @@ const handleLike =() => {
                 liked? (
                     <img src={HeartFilled} alt="" className="cardIcon" />
                 ) :(
-                    <img src={Heart} alt="" className="cardIcon"  onClick={ handleLike }/>
+                    <img src={Heart} alt="" className="cardIcon"  onClick={ ()=> handleLike(1) }/>
                 )
             }
-            <img src={Comment} alt="" className="cardIcon" />
-            <img src={Share} alt="" className="cardIcon" />
+            <img src={Comment} alt="" className="cardIcon" onClick={ ()=> handleLike(1) } />
+            <img src={Share} alt="" className="cardIcon" onClick={ ()=> handleLike(3) }/>
             <img src={Info} alt="" className="infoIcon" />
           </div>
     </div>
@@ -39,3 +45,10 @@ const handleLike =() => {
 };
 
 export default Card;
+
+
+Card.propTypes = {
+  post: PropTypes.object.isRequired,
+  socket: PropTypes.object, // Add this line for the socket prop
+  user: PropTypes.string.isRequired,
+};

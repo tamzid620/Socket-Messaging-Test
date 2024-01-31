@@ -8,12 +8,16 @@ import { io } from "socket.io-client";
 const App = () => {
   const [userName, setUserName] = useState("");
   const [user, setUser] = useState("");
+  const [socket, setSocket] = useState(null) ;
 
-useEffect(()=> {
-  const socket = io("http://localhost:5000");
-  console.log(socket);
-},[])
+  useEffect(() => {
+    setSocket(io("http://localhost:5000"));
+  }, []);
 
+  useEffect(() => {
+    socket.emit("newUser" , user)
+  }, [socket, user]);
+  
   // onchange section ---------------
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -33,12 +37,12 @@ useEffect(()=> {
     <div className="container">
       {user ? (
         <>
-          <Navbar />
+          <Navbar socket={socket}/>
           {posts.map((post) => (
-            <Card key={post.id} post={post} user={user} />
+            <Card key={post.id} post={post} user={user} socket={socket} />
           ))}
           {/* <Card /> */}
-          <span className="userName">{user}</span>
+          <span className="userName"> {user} </span>
         </>
       ) : (
         <div className="login">
